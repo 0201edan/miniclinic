@@ -40,7 +40,14 @@ public class LoginController {
 
         Doctor doctor = doctorRepo.findById(form.getDoctorId()).orElse(null);
         
-        if (doctor == null || !"123456".equals(form.getPassword())) {
+        if ("D001".equals(form.getDoctorId()) && "123456".equals(form.getPassword())) {
+    if (doctor == null) {
+        doctor = new Doctor();
+        doctor.setDoctorId("D001");
+        doctor.setName("陳志明醫師");
+        doctor.setDepartment("家醫科");
+    }
+    } else {
             model.addAttribute("errorMessage", "醫師編號或密碼錯誤");
             return "login";
         }

@@ -30,6 +30,21 @@
                 });
             }
         }
+        function completeAppointment(button) {
+    const apptId = button.getAttribute("data-id");
+    fetch(`/api/appointments/${apptId}/status`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: 'COMPLETED' })
+    })
+    .then(res => {
+        if (res.ok) {
+            location.reload();
+        } else {
+            alert("操作失敗，請稍後再試。");
+        }
+    });
+}
     </script>
 </head>
 <body>
@@ -65,6 +80,7 @@
                 </td>
                 <td>
                     <button th:if="${appt.status == 'BOOKED'}" th:data-id="${appt.apptId}" onclick="cancelAppointment(this)">取消掛號</button>
+                    <button th:if="${appt.status.name() == 'BOOKED' or appt.status == 'BOOKED'}" th:data-id="${appt.apptId}" onclick="completeAppointment(this)">看診完成</button>
                 </td>
             </tr>
         </tbody>

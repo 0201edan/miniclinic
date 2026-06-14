@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>醫師登入 - MiniClinic</title>
+    <style>
+        .alert { color: white; background-color: #f44336; padding: 10px; margin-bottom: 15px; }
+        .error { color: red; font-size: 0.9em; }
+        .field { margin-bottom: 15px; }
+    </style>
+</head>
+<body>
+    <h1>MiniClinic 醫師登入</h1>
+    
+    <div class="alert" th:if="${errorMessage}" th:text="${errorMessage}"></div>
+
+    <form th:action="@{/login}" th:object="${loginForm}" method="post">
+        <div class="field">
+            <label>醫師編號：</label>
+            <input type="text" th:field="*{doctorId}" placeholder="D001">
+            <div class="error" th:if="${#fields.hasErrors('doctorId')}" th:errors="*{doctorId}"></div>
+        </div>
+
+        <div class="field">
+            <label>登入密碼：</label>
+            <input type="password" th:field="*{password}">
+            <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+        </div>
+
+        <button type="submit">登入系統</button>
+    </form>
+    <br>
+    <a th:href="@{/}">返回首頁</a>
+</body>
+</html>

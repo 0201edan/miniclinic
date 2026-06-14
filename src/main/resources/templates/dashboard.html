@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>醫師工作台-MiniClinic</title>
+    <style>
+        table { border-collapse: collapse; width: 80%; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        .status-BOOKED { color: blue; font-weight: bold; }
+        .status-COMPLETED { color: green; }
+        .status-CANCELLED { color: gray; text-decoration: line-through; }
+    </style>
+    <script>
+        function cancelAppointment(button) {
+            const apptId = button.getAttribute("data-id");
+            if (confirm("確定要取消這筆預約掛號嗎？")) {
+                fetch(`/api/appointments/${apptId}/status`, {
+                    method: 'PUT',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ status: 'CANCELLED' })
+                })
+                .then(res => {
+                    if (res.ok) {
+                        location.reload(); 
+                    } else if (res.status === 403) {
+                        alert("錯誤：您無權操作他人的掛號單！");
+                    } else {
+                        alert("取消失敗，請稍後再試。");
+                    }
+                });
+            }
+        }
+    </script>
+</head>
+<body>
+    <div style="display: flex; justify-content: space-between; width: 80%;">
+        <h2>歡迎，<span th:text="${doctor.name}"></span> 醫師 (<span th:text="${doctor.department}"></span>)</h2>
+        <form th:action="@{/logout}" method="post">
+            <button type="submit">安全登出</button>
+        </form>
+    </div>
+
+    <h3 th:text="'今日掛號清單：' + ${today}"></h3>
+    <p><a th:href="@{/password}">修改個人密碼</a></p>
+
+    <p th:if="${#lists.isEmpty(appointments)}">今日目前沒有病患掛號。</p>
+    
+    <table th:if="${!#lists.isEmpty(appointments)}">
+        <thead>
+            <tr>
+                <th>時段</th>
+                <th>病患姓名</th>
+                <th>病歷號</th>
+                <th>目狀態</th>
+                <th>操作管理</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="appt : ${appointments}">
+                <td th:text="${appt.timeSlot}"></td>
+                <td th:text="${appt.patient.name}"></td>
+                <td th:text="${appt.patient.chartNo}"></td>
+                <td>
+                    <span th:class="${'status-' + appt.status}" th:text="${appt.status}"></span>
+                </td>
+                <td>
+                    <button th:if="${appt.status == 'BOOKED'}" th:data-id="${appt.apptId}" onclick="cancelAppointment(this)">取消掛號</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

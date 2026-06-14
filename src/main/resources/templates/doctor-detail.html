@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>醫師詳細資料 - MiniClinic</title>
+</head>
+<body>
+    <h1>醫師詳細資料</h1>
+    <p><strong>醫師姓名：</strong> <span th:text="${doctor.name}"></span></p>
+    <p><strong>所屬科別：</strong> <span th:text="${doctor.department}"></span></p>
+    <p><strong>主治專長：</strong> <span th:text="${doctor.specialty}"></span></p>
+    
+    <br>
+    <a href="/doctors">返回醫師團隊</a> | 
+    <a href="/appointment/new">直接找這位醫師掛號</a>
+</body>
+</html>

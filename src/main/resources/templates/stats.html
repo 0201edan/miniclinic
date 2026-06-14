@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>診所數據統計 - MiniClinic</title>
+    <style>
+        table { border-collapse: collapse; width: 50%; margin-bottom: 20px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background-color: #f4f4f4; }
+    </style>
+</head>
+<body>
+    <h1>MiniClinic 診所數據統計 (Part B 加分功能)</h1>
+    
+    <p><strong>目前系統總掛號人次：</strong> <span th:text="${totalAppointments}">0</span> 次</p>
+
+    <h2>1. 各科別看診人數統計</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>科別</th>
+                <th>掛號人數</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="entry : ${deptStats}">
+                <td th:text="${entry.key}"></td>
+                <td th:text="${entry.value}">0</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>2. 各時段看診人數統計</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>看診時段</th>
+                <th>掛號人數</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="entry : ${slotStats}">
+                <td th:text="${entry.key}"></td>
+                <td th:text="${entry.value}">0</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <br>
+    <a href="/appointment/new">返回掛號首頁</a>
+</body>
+</html>

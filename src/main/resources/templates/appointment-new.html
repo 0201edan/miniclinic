@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-TW" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>新增掛號 - MiniClinic</title>
+</head>
+<body>
+    <h1>MiniClinic 新增掛號</h1>
+    <p style="color: red;" th:if="${error}" th:text="${error}"></p>
+    
+    <form action="/appointment/new" method="post" th:object="${form}">
+        <label>病歷號 (Chart No):</label>
+        <input type="text" th:field="*{chartNo}" required placeholder="例如: TEST00001"><br><br>
+
+        <label>選擇醫師:</label>
+        <select th:field="*{doctorId}">
+            <option th:each="doc : ${doctors}" th:value="${doc.doctorId}" th:text="${doc.name + ' (' + doc.department + ')'}"></option>
+        </select><br><br>
+
+        <label>預約日期:</label>
+        <input type="date" th:field="*{apptDate}" required><br><br>
+
+        <label>預約時段:</label>
+        <select th:field="*{timeSlot}">
+            <option value="上午">上午</option>
+            <option value="下午">下午</option>
+            <option value="晚上">晚上</option>
+        </select><br><br>
+
+        <button type="submit">送出掛號</button>
+    </form>
+    <br>
+    <a href="/appointments">查看掛號紀錄總表</a>
+</body>
+</html>

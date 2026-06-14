@@ -1,0 +1,5 @@
+INSERT INTO doctor (doctor_id, name, department, password_hash) VALUES ('D001', '陳志明醫師', '家醫科', '$2a$10$X.aEw6T1H8YOnn7Y3iA2reOBRGeXy.W4W5pYn1K8o4iBf3hK7yq1a');
+INSERT INTO doctor (doctor_id, name, department, password_hash) VALUES ('D002', '林佩君醫師', '內科', '$2a$10$R9qo8uLOickgx2ZMRZo5.uM1ZpYp9vK2w5vN1o8o4iBf3hK7yq2b');
+INSERT INTO doctor (doctor_id, name, department, password_hash) VALUES ('D003', '王大同醫師', '兒科', '$2a$10$b8vYn3K8o4iBf3hK7yq3c.OBRGeXy.W4W5pYn1K8o4iBf3hK7yq3c');
+INSERT INTO doctor (doctor_id, name, department, password_hash) VALUES ('D004', '張美玲醫師', '婦產科', '$2a$10$z9pYn1K8o4iBf3hK7yq4d.uM1ZpYp9vK2w5vN1o8o4iBf3hK7yq4d');
+INSERT INTO doctor (doctor_id, name, department, password_hash) VALUES ('D005', '李家豪醫師', '復健科', '$2a$10$m1o8o4iBf3hK7yq5e.W4W5pYn1K8o4iBf3hK7yq5e.OBRGeXy.W4W5p');
